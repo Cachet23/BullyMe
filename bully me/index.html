@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tabellenbeispiel - Startseite</title>
+  <style>
+
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #333;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 30px;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar li {
+      margin-right: 10px;
+    }
+
+    .navbar li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar li a:hover {
+      background-color: #555;
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .dark-mode {
+      background-color: 444;
+      color: #fff;
+    }
+        /* Neuer CSS-Code für den Toggle-Button */
+        .toggle-btn {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-btn button {
+      margin: 0 5px; /* Abstand zum Nachbarn hinzugefügt */
+      padding: 8px 16px; /* Größe des Buttons festgelegt */
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .toggle-btn button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html">Startseite</a></li>
+      <li><a href="input.html">Eingabe</a></li>
+      <li><a href="table.html">Tabelle</a></li>
+    </ul>
+    <div class="toggle-btn">
+      <button onclick="toggleMode()">Toggle Mode</button>
+    </div>
+  </div>
+
+  <h1>Tabellenbeispiel - Startseite</h1>
+  <script>
+    function toggleMode() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+
+      // Überprüfen, ob der Dark Mode aktiv ist
+      var darkModeEnabled = body.classList.contains("dark-mode");
+
+      // Den Modus im Local Storage speichern
+      localStorage.setItem("mode", darkModeEnabled ? "dark" : "light");
+    }
+
+    // Beim Laden der Seite den Modus aus dem Local Storage abrufen und anwenden
+    window.addEventListener("DOMContentLoaded", function() {
+      var savedMode = localStorage.getItem("mode");
+      var body = document.body;
+
+      if (savedMode === "dark") {
+        body.classList.add("dark-mode");
+      }
+    });
+  </script>
+</body>
+</html>

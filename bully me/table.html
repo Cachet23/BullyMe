@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Essensplan - Tabelle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #333;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 30px;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar li {
+      margin-right: 10px;
+    }
+
+    .navbar li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar li a:hover {
+      background-color: #555;
+      color: #fff;
+      transform: scale(1.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #333;
+      color: #fff;
+    }
+    /* Neuer CSS-Code für den Toggle-Button */
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-btn button {
+      margin: 0 5px; /* Abstand zum Nachbarn hinzugefügt */
+      padding: 8px 16px; /* Größe des Buttons festgelegt */
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .toggle-btn button:hover {
+      background-color: #444;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html">Startseite</a></li>
+      <li><a href="input.html">Eingabe</a></li>
+      <li><a href="table.html">Tabelle</a></li>
+    </ul>
+    <div class="toggle-btn">
+      <button onclick="toggleMode()">Toggle Mode</button>
+    </div>
+  </div>
+
+  <h1>Essensplan - Tabelle</h1>
+
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>Mahlzeit von</th>
+        <th>Mit wem</th>
+        <th>Situation vor dem Essen</th>
+        <th>Hunger (in %)</th>
+        <th>Menge</th>
+        <th>Lebensmittel/Getränk</th>
+        <th>Satt (in %)</th>
+        <th>Essanfall</th>
+        <th>Gewichtsregulierende Maßnahmen</th>
+        <th>Situation nach dem Essen</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <button onclick="resetTable()">Tabelle zurücksetzen</button>
+  <button onclick="window.print()">Tabelle drucken</button>
+
+  <script>
+    function populateTable() {
+      var storedData = JSON.parse(localStorage.getItem("rowData")) || [];
+
+      var tableBody = document.getElementById("tableBody");
+
+      for (var i = 0; i < storedData.length; i++) {
+        var rowData = storedData[i];
+        var newRow = tableBody.insertRow(tableBody.rows.length);
+        for (var j = 0; j < rowData.length; j++) {
+          var cell = newRow.insertCell(j);
+          cell.innerHTML = rowData[j];
+        }
+      }
+    }
+
+    populateTable();
+  </script>
+
+  
+  <script>
+    function resetTable() {
+      var tableBody = document.getElementById("tableBody");
+      tableBody.innerHTML = "";
+      localStorage.removeItem("rowData");
+    }
+  </script>
+
+  <script>
+    function prepareAndPrint() {
+      document.querySelector("button").style.display = "none";
+      var style = document.createElement("style");
+      style.innerHTML = "@media print { table { width: 100%; } }";
+      document.head.appendChild(style);
+      window.print();
+      document.querySelector("button").style.display = "block";
+      document.head.removeChild(style);
+    }
+  </script>
+
+  <script>
+    function toggleMode() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+      var darkModeEnabled = body.classList.contains("dark-mode");
+      localStorage.setItem("mode", darkModeEnabled ? "dark" : "light");
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+      var savedMode = localStorage.getItem("mode");
+      var body = document.body;
+
+      if (savedMode === "dark") {
+        body.classList.add("dark-mode");
+      }
+    });
+  </script>
+  
+</body>
+</html>

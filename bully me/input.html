@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Essensplan - Eingabe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #333;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 30px;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar li {
+      margin-right: 10px;
+    }
+
+    .navbar li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar li a:hover {
+      background-color: #555;
+      color: #fff;
+      transform: scale(1.1);
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+    /* Neuer CSS-Code für den Toggle-Button */
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-btn button {
+      margin: 0 5px; /* Abstand zum Nachbarn hinzugefügt */
+      padding: 8px 16px; /* Größe des Buttons festgelegt */
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .toggle-btn button:hover {
+      background-color: #444;
+    }
+
+    /* Range-Slider-Styling */
+    .range-slider {
+      width: 100%;
+      position: relative;
+    }
+
+    .range-slider input[type="range"] {
+      width: 100%;
+      
+      background-color: #ccc;
+      height: 5px;
+      border-radius: 5px;
+      outline: none;
+      margin: 5px 0;
+    }
+
+    .range-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background-color: #555;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .range-slider input[type="range"]::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      background-color: #555;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .range-slider input[type="range"]:focus {
+      outline: none;
+    }
+    .multi-select {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .multi-select select {
+      width: 100%;
+      height: 100%;
+      padding: 5px;}
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html">Startseite</a></li>
+      <li><a href="input.html">Eingabe</a></li>
+      <li><a href="table.html">Tabelle</a></li>
+    </ul>
+    <div class="toggle-btn">
+      <button onclick="toggleMode()">Toggle Mode</button>
+    </div>
+  </div>
+
+  <h1>Essensplan - Eingabe</h1>
+
+  <form id="myForm">
+    <label for="mealFrom">Mahlzeit von:</label>
+    <input type="time" id="mealFrom" name="mealFrom" >
+
+
+    <label for="withWhom">Mit wem:</label>
+    <select id="withWhom" name="withWhom" multiple required>
+      <option value="Familie">Familie</option>
+      <option value="Mama">Mama</option>
+      <option value="Eve">Eve</option>
+      <option value="Lisa">Lisa</option>
+    </select>
+    <label for="customWithWhom">Eigene Option hinzufügen:</label>
+    <div>
+      <input type="text" id="customWithWhom" placeholder="Eigene Option">
+      <button type="button" id="addCustomWithWhomButton" style="display: none;">Hinzufügen</button>
+    </div>
+    
+
+    <label for="situationBefore">Situation vor dem Essen:</label>
+    <textarea id="situationBefore" name="situationBefore" rows="4"></textarea>
+
+    <label for="hunger">Hunger:</label>
+    <div class="range-slider">
+      <input type="range" id="hunger" name="hunger" min="0" max="100" step="1">
+    </div>
+
+    <label for="amount">Menge:</label>
+    <select id="amount" name="amount" multiple required>
+      <option value="1x Handvoll">1x Handvoll</option>
+      <option value="1x Teller">1x Teller</option>
+      <option value="1x Schale">1x Schale</option>
+      <option value="1x Glas">1x Glas</option>
+    </select>
+    <label for="customAmount">Eigene Option hinzufügen:</label>
+    <div>
+      <input type="text" id="customAmount" placeholder="Eigene Option">
+      <button type="button" id="addCustomAmountButton" style="display: none;">Hinzufügen</button>
+    </div>
+
+    <label for="food">Lebensmittel/Getränk:</label>
+    <input type="text" id="food" name="food" >
+
+    <label for="satisfaction">Satt:</label>
+    <div class="range-slider">
+      <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" step="1" >
+    </div>
+
+    <label for="eatingAttack">Fressattacke:</label>
+    <input type="checkbox" id="eatingAttack" name="eatingAttack">
+
+    <label for="weightManagement">Gewichtsregulierende Maßnahmen</label>
+    <select id="weightManagement" name="weightManagement" multiple required>
+      <option value="15omin Workout">15omin Workout</option>
+      <option value="30 min Workout">30 min Workout</option>
+      <option value="1h Gym">1h Gym</option>
+      <option value="2h Gym">2h Gym</option>
+      <option value="Erbrochen">Erbrochen</option>
+      <option value="Sport geplant">Sport geplant</option>
+      <option value="Sport geplant">Joggen</option>
+      <option value="keine">keine</option>
+    </select>
+    <label for="customWeightManagement">Eigene Option hinzufügen:</label>
+    <div>
+      <input type="text" id="customWeightManagement" placeholder="Eigene Option">
+      <button type="button" id="addCustomWeightManagementButton" style="display: none;">Hinzufügen</button>
+    </div>
+
+
+    <label for="situationAfter">Situation nach dem Essen:</label>
+    <textarea id="situationAfter" name="situationAfter" rows="4"></textarea>
+
+    <button type="submit">Speichern</button>
+    <button type="reset">Zurücksetzen</button>
+  </form>
+
+<script>
+    document.getElementById("customWithWhom").addEventListener("input", function() {
+      var addCustomWithWhomButton = document.getElementById("addCustomWithWhomButton");
+      if (this.value.trim() !== "") {
+        addCustomWithWhomButton.style.display = "inline-block";
+      } else {
+        addCustomWithWhomButton.style.display = "none";
+      }
+    });
+  
+    document.getElementById("addCustomWithWhomButton").addEventListener("click", function() {
+      var customWithWhomInput = document.getElementById("customWithWhom");
+      var customWithWhom = customWithWhomInput.value.trim();
+      if (customWithWhom !== "") {
+        var withWhomSelect = document.getElementById("withWhom");
+        var newOption = document.createElement("option");
+        newOption.value = customWithWhom;
+        newOption.text = customWithWhom;
+        withWhomSelect.add(newOption);
+        customWithWhomInput.value = "";
+        this.style.display = "none";
+        saveCustomWithWhom(customWithWhom);
+      }
+    });
+  
+    function saveCustomWithWhom(customWithWhom) {
+      var storedCustomWithWhomOptions = JSON.parse(localStorage.getItem("customWithWhomOptions")) || [];
+      storedCustomWithWhomOptions.push(customWithWhom);
+      localStorage.setItem("customWithWhomOptions", JSON.stringify(storedCustomWithWhomOptions));
+    }
+  
+    function populateWithWhomOptions() {
+      var storedCustomWithWhomOptions = JSON.parse(localStorage.getItem("customWithWhomOptions")) || [];
+      var withWhomSelect = document.getElementById("withWhom");
+      for (var i = 0; i < storedCustomWithWhomOptions.length; i++) {
+        var customWithWhom = storedCustomWithWhomOptions[i];
+        var newOption = document.createElement("option");
+        newOption.value = customWithWhom;
+        newOption.text = customWithWhom;
+        withWhomSelect.add(newOption);
+      }
+    }
+  
+    window.addEventListener("DOMContentLoaded", function() {
+      populateWithWhomOptions();
+    });
+    
+  </script>
+
+
+  <script id="load customAmounts">
+    document.getElementById("customAmount").addEventListener("input", function() {
+      var addCustomAmountButton = document.getElementById("addCustomAmountButton");
+      if (this.value.trim() !== "") {
+        addCustomAmountButton.style.display = "inline-block";
+      } else {
+        addCustomAmountButton.style.display = "none";
+      }
+    });
+  
+    document.getElementById("addCustomAmountButton").addEventListener("click", function() {
+      var customAmountInput = document.getElementById("customAmount");
+      var customAmount = customAmountInput.value.trim();
+      if (customAmount !== "") {
+        var amountSelect = document.getElementById("amount");
+        var newOption = document.createElement("option");
+        newOption.value = customAmount;
+        newOption.text = customAmount;
+        amountSelect.add(newOption);
+        customAmountInput.value = "";
+        this.style.display = "none";
+        saveCustomAmount(customAmount);
+      }
+    });
+  
+    function saveCustomAmount(customAmount) {
+      var storedCustomAmounts = JSON.parse(localStorage.getItem("customAmounts")) || [];
+      storedCustomAmounts.push(customAmount);
+      localStorage.setItem("customAmounts", JSON.stringify(storedCustomAmounts));
+    }
+  
+    function populateAmountOptions() {
+      var storedCustomAmounts = JSON.parse(localStorage.getItem("customAmounts")) || [];
+      var amountSelect = document.getElementById("amount");
+      for (var i = 0; i < storedCustomAmounts.length; i++) {
+        var customAmount = storedCustomAmounts[i];
+        var newOption = document.createElement("option");
+        newOption.value = customAmount;
+        newOption.text = customAmount;
+        amountSelect.add(newOption);
+      }
+    }
+  
+    window.addEventListener("DOMContentLoaded", function() {
+      populateAmountOptions();
+    });
+  </script>
+  
+  <script id="loadCustomWeightManagements">
+    document.getElementById("customWeightManagement").addEventListener("input", function() {
+      var addCustomWeightManagementButton = document.getElementById("addCustomWeightManagementButton");
+      if (this.value.trim() !== "") {
+        addCustomWeightManagementButton.style.display = "inline-block";
+      } else {
+        addCustomWeightManagementButton.style.display = "none";
+      }
+    });
+  
+    document.getElementById("addCustomWeightManagementButton").addEventListener("click", function() {
+      var customWeightManagementInput = document.getElementById("customWeightManagement");
+      var customWeightManagement = customWeightManagementInput.value.trim();
+      if (customWeightManagement !== "") {
+        var weightManagementSelect = document.getElementById("weightManagement");
+        var newOption = document.createElement("option");
+        newOption.value = customWeightManagement;
+        newOption.text = customWeightManagement;
+        weightManagementSelect.add(newOption);
+        customWeightManagementInput.value = "";
+        this.style.display = "none";
+        saveCustomWeightManagement(customWeightManagement);
+      }
+    });
+  
+    function saveCustomWeightManagement(customWeightManagement) {
+      var storedCustomWeightManagements = JSON.parse(localStorage.getItem("customWeightManagements")) || [];
+      storedCustomWeightManagements.push(customWeightManagement);
+      localStorage.setItem("customWeightManagements", JSON.stringify(storedCustomWeightManagements));
+    }
+  
+    function populateWeightManagementOptions() {
+      var storedCustomWeightManagements = JSON.parse(localStorage.getItem("customWeightManagements")) || [];
+      var weightManagementSelect = document.getElementById("weightManagement");
+      for (var i = 0; i < storedCustomWeightManagements.length; i++) {
+        var customWeightManagement = storedCustomWeightManagements[i];
+        var newOption = document.createElement("option");
+        newOption.value = customWeightManagement;
+        newOption.text = customWeightManagement;
+        weightManagementSelect.add(newOption);
+      }
+    }
+  
+    window.addEventListener("DOMContentLoaded", function() {
+      populateWeightManagementOptions();
+    });
+  </script>
+
+  <script id="saveData">
+function saveData() {
+  // Ausgewählte Optionen der Menge abrufen
+  var amountSelect = document.getElementById("amount");
+  var selectedOptions = Array.from(amountSelect.selectedOptions);
+  var amount = selectedOptions.map(option => option.value).join(", ");
+  var selectedOptions = Array.from(amountSelect.selectedOptions).map(option => option.value);
+
+  var customAmountInput = document.getElementById("customAmount");
+  var customAmount = customAmountInput.value.trim();
+  if (customAmount !== "") {
+    selectedOptions.push(customAmount);
+    var newOption = document.createElement("option");
+    newOption.value = customAmount;
+    newOption.text = customAmount;
+    amountSelect.add(newOption);
+  }
+
+  // Andere Eingabefelder abrufen
+  var mealFrom = document.getElementById("mealFrom").value;
+  var withWhom = document.getElementById("withWhom").value;
+  var situationBefore = document.getElementById("situationBefore").value;
+  var hunger = document.getElementById("hunger").value;
+  var food = document.getElementById("food").value;
+  var satisfaction = document.getElementById("satisfaction").value;
+  var eatingAttack = document.getElementById("eatingAttack").checked;
+
+  // Ausgewählte Optionen der gewichtsregulierenden Maßnahmen abrufen
+  var weightManagementSelect = document.getElementById("weightManagement");
+  var selectedWeightOptions = Array.from(weightManagementSelect.selectedOptions).map(option => option.value);
+
+  var withWhomSelect = document.getElementById("withWhom");
+  var selectedWithOptions = Array.from(withWhomSelect.selectedOptions).map(option => option.value);
+
+  var situationAfter = document.getElementById("situationAfter").value;
+
+  var rowData = [
+    mealFrom,
+    selectedWithOptions.join(", "),
+    situationBefore,
+    hunger + "%",
+    selectedOptions.join(", "), // Ausgewählte Optionen als kommaseparierten String speichern
+    food,
+    satisfaction + "%",
+    eatingAttack ? "Ja" : "Nein",
+    selectedWeightOptions.join(", "), // Ausgewählte Optionen der gewichtsregulierenden Maßnahmen als kommaseparierten String speichern
+    situationAfter
+  ];
+
+  var storedData = JSON.parse(localStorage.getItem("rowData")) || [];
+  storedData.push(rowData);
+  localStorage.setItem("rowData", JSON.stringify(storedData));
+
+  form.reset();
+}
+
+  </script>
+
+  <script id="MAIN">
+    window.addEventListener("DOMContentLoaded", function() {
+    function toggleMode() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+      var darkModeEnabled = body.classList.contains("dark-mode");
+      localStorage.setItem("mode", darkModeEnabled ? "dark" : "light");
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+      var savedMode = localStorage.getItem("mode");
+      var body = document.body;
+
+      if (savedMode === "dark") {
+        body.classList.add("dark-mode");
+      }
+    });
+
+    var form = document.getElementById("myForm");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      saveData();
+    });
+
+});
+
+
+  </script>
+
+<script id="toggleMode">
+  function toggleMode() {
+    var body = document.body;
+    body.classList.toggle("dark-mode");
+    var darkModeEnabled = body.classList.contains("dark-mode");
+    localStorage.setItem("mode", darkModeEnabled ? "dark" : "light");
+  }
+
+  window.addEventListener("DOMContentLoaded", function() {
+    var savedMode = localStorage.getItem("mode");
+    var body = document.body;
+
+    if (savedMode === "dark") {
+      body.classList.add("dark-mode");
+    }
+  });
+</script>
+
+</body>
+</html>
